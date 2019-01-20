@@ -76,7 +76,7 @@ if (is_admin()){
   //Org Section selector
 	$sim_meta->addPosts($prefix.'posts_field_id',array(),array('post_type' => 'div_details','name'=> 'Assigned Division'));
 	//radio field
-	$my_meta->addRadio($prefix.'sim_status',array('active'=>'Active','docked'=>'Dry Docked','decommissioned'=>'Decommissioned'),array('name'=> 'Status', 'std'=> array('active')));
+	$sim_meta->addRadio($prefix.'sim_status',array('Active'=>'Active','In Development'=>'Development','Decommissioned'=>'Decommissioned'),array('name'=> 'Status', 'std'=> array('active')));
   //Finish Meta Box Declaration 
  	$sim_meta->Finish();
 
@@ -102,14 +102,6 @@ if (is_admin()){
    * Initiate your 2nd meta box
    */
   $sim_meta2 =  new AT_Meta_Box($config2);
-   //get users who are authors
-	$authors = get_users( array() );
-// Array of WP_User objects and we need an array of key => value or in our case
-// array of user_id => user name so.
-	$authors_array = array();
-	foreach ( $authors as $user ) 
-	$authors_array[$user->ID] = $user->user_nicename;
-   
   /*
    * To Create a reapeater Block first create an array of fields
    * use the same functions as above but add true as a last param
@@ -117,10 +109,7 @@ if (is_admin()){
   $sim_details_fields[] = $sim_meta2->addText($prefix.'sim_post',array('name'=> 'Position'),true);
   $sim_details_fields[] = $sim_meta2->addText($prefix.'sim_rank',array('name'=> 'Rank'),true);
   $sim_details_fields[] = $sim_meta2->addText($prefix.'sim_name',array('name'=> 'Name'),true);
-  //and now we can use the #authors_array in a select dropdown field
-//select field
-  $sim_details_fields[] = $div_meta2->addSelect($prefix.'authors_select',$authors_array,array('name'=> 'Username'),true);
-  /*
+   /*
    * Then just add the fields to the repeater block
    */
   //repeater block

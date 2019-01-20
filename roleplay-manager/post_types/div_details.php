@@ -24,7 +24,7 @@ function create_div_detail() {
 			'show_in_menu' => 'Roleplay-Manager',
             'supports' => array( 'title' , 'thumbnail' , 'author' ),
             'taxonomies' => array( '' ),
-			'rewrite' => array('slug' => 'division'),
+			'rewrite' => array('slug' => 'divisions'),
             'has_archive' => true
         )
     );
@@ -69,8 +69,6 @@ if (is_admin()){
   	$div_meta->addText($prefix.'div_name',array('name'=> 'Division Name' , 'desc' => 'The name of the Division'));
   //wysiwyg field
   	$div_meta->addWysiwyg($prefix.'div_info',array('name'=> 'Information' , 'desc' => 'Division information and history'));
-  //Org Section selector
-	$div_meta->addPosts($prefix.'posts_field_id',array(),array('post_type' => 'sim_details','name'=> 'Assigned Games'));
   //Finish Meta Box Declaration 
   $div_meta->Finish();
   /**
@@ -93,13 +91,6 @@ if (is_admin()){
    * Initiate your 2nd meta box
    */
   $div_meta2 =  new AT_Meta_Box($config2);
-   //get users who are authors
-	$authors = get_users( array() );
-// Array of WP_User objects and we need an array of key => value or in our case
-// array of user_id => user name so.
-	$authors_array = array();
-	foreach ( $authors as $user ) 
-	$authors_array[$user->ID] = $user->user_nicename;
    
   /*
    * To Create a reapeater Block first create an array of fields
@@ -108,9 +99,6 @@ if (is_admin()){
   $div_details_fields[] = $div_meta2->addText($prefix.'staff_post',array('name'=> 'Position'),true);
   $div_details_fields[] = $div_meta2->addText($prefix.'staff_rank',array('name'=> 'Rank'),true);
   $div_details_fields[] = $div_meta2->addText($prefix.'staff_name',array('name'=> 'Name'),true);
-  //and now we can use the #authors_array in a select dropdown field
-//select field
-  $div_details_fields[] = $div_meta2->addSelect($prefix.'authors_select',$authors_array,array('name'=> 'Username'),true);
   /*
    * Then just add the fields to the repeater block
    */

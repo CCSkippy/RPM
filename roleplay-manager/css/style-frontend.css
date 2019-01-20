@@ -1,42 +1,123 @@
-.flex-area {
-   display: flex;
+/* Bio Cards Layout */
+.content {
+	background-color: #2A3439;
 }
 .card {
-    flex: 0 1 calc(25% - 1em);
-	background-color: #e7e7e7;
-	 border: 1px solid #fff;
-	 padding: 15px;
-	border-radius: 40px 10px;
+	background-color: #2A3439;
+	border: 1px solid #000;
+	margin: 1px;
+	height: 100%;
+	position:relative;
 }
-.grid-container-outer
-{
-	width: 100%;
-	grid-template-rows: auto;
-	grid-template-columns: 1fr;
-	grid-column-gap: 3px;
-	grid-row-gap: 3px;
-	padding: 5px;
-	border-radius: 40px 10px;
+.bio-head {
+		background-color: #000;
+		padding: 15px;
+		font-weight: bold;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		}
+.bio-img {
+	width: 150px;
+	float: right;
+	border: 1px solid #000:
 }
+.rmore {
+  background-color: #3F565F;
+  border: 1px solid #a3931d;
+  padding: 3px 5px;
+  text-decoration: none;
+  font-size: 14px;
+  position: absolute;
+  right:    5px;
+  bottom:   5px;
+}
+.deptimg {
+	border-radius: 15px 30px 30px 15px;
+}
+/* Text */
+
 .subtitle {
 	width: 100%;
-	background-color: #e7e7e7;
-	grid-template-rows: auto;
-	grid-template-columns: 1fr;
-	grid-column-gap: 3px;
-	grid-row-gap: 3px;
-	border: 1px solid #fff;
-	border-radius: 40px 10px;
 	padding: 8px;
 }
-.half {
-	width: 50%;
-	float: left;
+.smalltext {
+	font-size: 10px;
+	padding: 5px;
+}
+.depttext {
+	font-size: 14px;
+	padding: 5px;
+}
+.biotext {
+	font-size: 12px;
+	padding: 5px;
+}
+/* Wiki Style Page */
+.wiki-style{
+	background-color: #2A3439;
+	border: 1px solid #000;
+	margin: px;
+	height: 100%;
+}
+.wiki-card {
+	background-color: #2A3439;
+	border: 1px solid #000;
+	margin: 1px;
+	width: 200px;
+	float: right;
+}
+.wiki-img {
+	width: 150px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Page Layout */
+
+.inline-test {
+	display: inline-block;
+	width: 33.3%;
+	margin: 1px;
+	text-align: left;
+	border: 1px solid #000;
+	border-radius: 15px 15px 0px 0px;
+}
+.whitespace {
+    white-space: pre-wrap;
+  }
+.sim-half {
+	flex: 1;
+	width: 45%;
 }
 .org-half {
+	flex: 1;
 	width: 33.3%;
-	float: left;
 }
 .ng-row {
+	display: flex;
+	flex-direction: row;
 	clear: both;
+}
+@media screen and (max-width: 600px) {
+.sim-half {
+	flex: 1;
+	width: 100%;
+}
+.org-half {
+	flex: 1;
+	width: 100%;
+}
+.ng-row {
+	display: flex;
+	flex-direction: column;
+	clear: both;
+}
+.wiki-card {
+	background-color: #2A3439;
+	border: 1px solid #000;
+	margin: 1px;
+	width: 200px;
+}
 }

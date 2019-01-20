@@ -56,6 +56,13 @@ class organisationsettings_Settings_Page {
 				'desc' => 'The title for the different sections of your org eg GOVERNANCE',
 				'placeholder' => 'Governance',
 			),
+			array(
+				'label' => 'Memorial image and statement',
+				'id' => 'org_mem',
+				'type' => 'wysiwyg',
+				'section' => 'organisationsettings_section',
+				'desc' => 'Add a memorial image and statement for the memorial page.',
+			),
 		);
 		foreach( $fields as $field ){
 			add_settings_field( $field['id'], $field['label'], array( $this, 'wph_field_callback' ), 'organisationsettings', $field['section'], $field );

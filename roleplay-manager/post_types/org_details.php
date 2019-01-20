@@ -5,7 +5,7 @@ function create_org_detail() {
     register_post_type( 'org_details',
         array(
             'labels' => array(
-                'name' => 'Administration Groups',
+                'name' => 'Administration',
                 'singular_name' => 'Administration Group',
                 'add_new' => 'Add New',
                 'add_new_item' => 'Add New Admin Group',
@@ -23,9 +23,9 @@ function create_org_detail() {
             'public' => true,
             'show_ui' => true,
 			'show_in_menu' => 'Roleplay-Manager',
-            'supports' => array( 'title' , 'thumbnail' , 'author'),
+            'supports' => array( 'title' , 'thumbnail' ),
             'taxonomies' => array( '' ),
-			'rewrite' => array('slug' => 'org'),
+			'rewrite' => array('slug' => 'aboutus'),
             'has_archive' => true
         )
     );
@@ -103,10 +103,13 @@ if (is_admin()){
    * To Create a reapeater Block first create an array of fields
    * use the same functions as above but add true as a last param
    */
+  $repeater_fields[] = $my_meta2->addImage($prefix.'org_staff_img',array('name'=> 'Profile Image'),true);
+  $repeater_fields[] = $my_meta2->addImage($prefix.'org_staff_title',array('name'=> 'Title Image'),true);
   $repeater_fields[] = $my_meta2->addText($prefix.'org_staff_post',array('name'=> 'Position'),true);
   $repeater_fields[] = $my_meta2->addText($prefix.'org_staff_rank',array('name'=> 'Rank'),true);
   $repeater_fields[] = $my_meta2->addText($prefix.'org_staff_name',array('name'=> 'Name'),true);
   $repeater_fields[] = $my_meta2->addText($prefix.'org_discord_name',array('name'=> 'Discord Name'),true);
+  $repeater_fields[] = $my_meta2->addTextarea('org_staff_bio',array('name'=> 'Biography'),true);
   /*
    * Then just add the fields to the repeater block
    */
@@ -122,7 +125,59 @@ if (is_admin()){
    */
   //Finish Meta Box Declaration 
   $my_meta2->Finish();
+
+    /**
+   * Create a second metabox
+   */
+  /* 
+   * configure your meta box
+   */
+  $config3 = array(
+    'id'             => 'org_support_staff',          // meta box id, unique per meta box
+    'title'          => 'Support Staff Positions',          // meta box title
+    'pages'          => array('org_details'),      // post types, accept custom post types as well, default is array('post'); optional
+    'context'        => 'normal',            // where the meta box appear: normal (default), advanced, side; optional
+    'priority'       => 'high',            // order of meta box: high (default), low; optional
+    'fields'         => array(),            // list of meta fields (can be added by field arrays)
+    'local_images'   => false,          // Use local or hosted images (meta box images for add/remove)
+    'use_with_theme' => false          //change path if used with theme set to true, false for a plugin or anything else for a custom path(default false).
+  );
+  
+  
+  /*
+   * Initiate your 2nd meta box
+   */
+  $my_meta3 =  new AT_Meta_Box($config3);
+  
+   
+  /*
+   * To Create a reapeater Block first create an array of fields
+   * use the same functions as above but add true as a last param
+   */
+  $support_repeater_fields[] = $my_meta3->addImage($prefix.'org_support_staff_img',array('name'=> 'Profile Image'),true);
+  $support_repeater_fields[] = $my_meta3->addImage($prefix.'org_support_staff_title',array('name'=> 'Title Image'),true);
+  $support_repeater_fields[] = $my_meta3->addText($prefix.'org_support_staff_post',array('name'=> 'Position'),true);
+  $support_repeater_fields[] = $my_meta3->addText($prefix.'org_support_staff_rank',array('name'=> 'Rank'),true);
+  $support_repeater_fields[] = $my_meta3->addText($prefix.'org_support_staff_name',array('name'=> 'Name'),true);
+  $support_repeater_fields[] = $my_meta3->addText($prefix.'org_support_discord_name',array('name'=> 'Discord Name'),true);
+  $support_repeater_fields[] = $my_meta2->addTextarea('org_support_staff_bio',array('name'=> 'Biography'),true);
+  /*
+   * Then just add the fields to the repeater block
+   */
+  //repeater block
+  $my_meta3->addRepeaterBlock($prefix.'org_support_staff_repeater',array(
+    'name'     => 'Group Support Staff',
+    'fields'   => $support_repeater_fields
+  ));
+  
+
+  /*
+   * Don't Forget to Close up the meta box Declaration 
+   */
+  //Finish Meta Box Declaration 
+  $my_meta2->Finish();
 }
+
 add_filter( 'template_include', 'include_template_function', 1 );
 function include_template_function( $template_path ) {
      if ( get_post_type() == 'org_details' ) {

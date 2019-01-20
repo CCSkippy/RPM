@@ -40,6 +40,10 @@ include_once(dirname(__FILE__).'/lib.php');
     );
  
  }
+  function custom_footer_admin_text () {
+     	 echo "Roleplay Manager v2.0 developed by Skippy &copy; 2018 Sector 7 Solutions";
+  }
+  add_filter('admin_footer_text', 'custom_footer_admin_text');
  
  add_action( 'admin_menu', 'database_admin_menu' );
 //hook into the init action and call create_book_taxonomies when it fires
@@ -99,3 +103,28 @@ function posts_for_current_author($query) {
     return $query;
 }
 add_filter('pre_get_posts', 'posts_for_current_author'); 
+add_filter('posts_where', 'no_privates');
+function no_privates($where) {
+    if( is_admin() ) return $where;
+
+    global $wpdb;
+    return " $where AND {$wpdb->posts}.post_status != 'private' ";
+}
+add_filter('manage_sim_details_posts_columns', 'bs_sim_table_head');
+function bs_sim_table_head( $defaults ) {
+    $defaults['sim_status']  = 'Status';
+    $defaults['sim_url']    = 'Site URL';
+    return $defaults;
+}
+add_action( 'manage_sim_details_posts_custom_column', 'bs_sim_table_content', 10, 2 );
+
+function bs_sim_table_content( $column_name, $post_id ) {
+
+    if ($column_name == 'sim_status') {
+    echo get_post_meta( $post_id, 'sim_status', true );
+    }
+	if ($column_name == 'sim_url') {
+    echo get_post_meta( $post_id, 'sim_url', true );
+    }
+}
+add_action( 'admin_enqueue_scripts', 'wp_enqueue_media' ); 
